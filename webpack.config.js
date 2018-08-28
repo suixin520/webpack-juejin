@@ -1,7 +1,10 @@
 const path = require('path');
+const webpack = require('webpack');
 const UglifyPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
 
 module.exports = {
   // entry
@@ -59,7 +62,16 @@ module.exports = {
       filename: 'index.html', // 配置输出文件名和路径
       template: 'src/index.html' // 配置模板文件
     }),
-    new ExtractTextPlugin('index.css'),
+    new ExtractTextPlugin('[name].css'), // 配置单独css输出目录
+    new webpack.DefinePlugin({
+      TWO: '1+1',
+      CONSTANTS: {
+        APP_VERSION: JSON.stringify('1.1.2'), // const CONSTANTS = { APP_VERSION: '1.1.2' }
+      },
+    }),
+    new CopyWebpackPlugin([
+      { from: 'assets/favicon.ico', to: 'favicon.ico', } // 配置复制文件的源路径与目标路径
+    ]),
   ],
 
   // output
