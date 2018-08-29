@@ -99,5 +99,24 @@ module.exports = {
     mainFields: ["browser", "module", "main"],
 
     mainFiles: ["index"],
+  },
+
+  // 配置webpack-dev-server
+  devServer: {
+    port: '1234',  // 静态服务的端口
+    // public: '',  // 指定静态服务的域名，默认是http://localhost:8080/
+    // publicPath: 'http://localhost:8080/assets/', // 指定构建好的静态文件在浏览器上用什么路径访问，可用相对路径，可用这个URL
+    // proxy: {
+    //   '/api': {
+    //     target: "http://localhost:3000", // 将URL中带有api的请求代理到本地的3000端口服务上
+    //     pathRewrite: { '^/api': '' }, // 把URL中path部分的api移除掉
+    //   }
+    // },
+    // contentBase: path.join(__dirname, "public"), // 配置提供额外的静态文件内容的目录，publicPath优先级高于contentBase
+    before(app) {
+      app.get('/some/path', function(req, res) { // 当访问/some/path路径，返回自定义的json数据
+        res.json({ code: 200, message: 'hello world' });
+      })
+    }
   }
 }

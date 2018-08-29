@@ -4,5 +4,7 @@ require('./index.css');
 const format = require('utils/format');
 const log = require('log');
 
-log(format('alias success~'))
+log(format('alias success~'));
+/* eslint-disable-next-line */
+log(CONSTANTS.APP_VERSION);
 console.log('hello webpack~');
